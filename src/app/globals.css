@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Paleta principal */
+  --color-cream: #faf9f7;
+  --color-sand: #f3eee8;
+  --color-stone: #ddd4ca;
+  --color-taupe: #a9a39c;
+  --color-ink: #292725;
+  /* Texto secundário com contraste AA sobre creme (taupe é só decorativo) */
+  --color-muted: #6b665f;
+
+  /* Cores de apoio (uso moderado) */
+  --color-rose: #f2dcdd;
+  --color-lilac: #e4ddf0;
+  --color-sky: #dce7f2;
+  --color-mint: #dcebe1;
+  --color-peach: #f6e0d0;
+  --color-gold: #c4a878;
+  --color-gold-soft: #eadfc8;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-lilac);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
