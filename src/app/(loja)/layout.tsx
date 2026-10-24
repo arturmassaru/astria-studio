@@ -1,5 +1,6 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { PageFrame } from "@/components/layout/PageFrame";
 
 export default function LojaLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,7 +12,9 @@ export default function LojaLayout({ children }: { children: React.ReactNode }) 
         Pular para o conteúdo
       </a>
       <Header />
-      <main id="conteudo">{children}</main>
+      <main id="conteudo">
+        <PageFrame>{children}</PageFrame>
+      </main>
       <Footer />
     </>
   );

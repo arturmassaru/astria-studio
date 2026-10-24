@@ -1,5 +1,7 @@
 import { ButtonLink } from "@/components/ui/Button";
 import { Ornament } from "@/components/ui/Ornament";
+import { CosmosBackground } from "@/components/ui/CosmosBackground";
+import { OrbitRing } from "@/components/ui/OrbitRing";
 import { Container, Eyebrow } from "@/components/ui/primitives";
 
 const steps = [
@@ -12,9 +14,22 @@ export function PersonalizadosSection() {
   return (
     <section aria-labelledby="personalizados-titulo" className="py-12 sm:py-20">
       <Container>
-        <div className="relative overflow-hidden rounded-[2rem] bg-lilac/45 px-6 py-14 sm:px-12 sm:py-20 lg:px-20">
-          <Ornament kind="orbit" className="absolute -right-10 -top-10 h-64 w-64 text-ink/15" />
-          <Ornament kind="moon" className="absolute bottom-10 right-12 hidden h-10 w-10 text-ink/40 sm:block" />
+        <div className="relative overflow-hidden rounded-[2rem] bg-lilac/40 px-6 py-14 sm:px-12 sm:py-20 lg:px-20">
+          <CosmosBackground className="absolute inset-0 opacity-80" />
+          <OrbitRing
+            className="-right-24 -top-24 h-[22rem] w-[22rem] border-cream/80"
+            planetClassName="bg-berry"
+            duration="26s"
+          />
+          <OrbitRing
+            className="-right-12 -top-12 h-[16rem] w-[16rem] border-ink/20"
+            planetClassName="bg-cream h-3! w-3!"
+            duration="18s"
+            reverse
+          />
+          <Ornament kind="planet" className="animate-float absolute bottom-10 right-16 hidden h-14 w-14 text-rose sm:block" />
+          <Ornament kind="star" className="animate-twinkle absolute bottom-24 left-[46%] hidden h-5 w-5 text-cream lg:block" />
+          <Ornament kind="star" className="animate-twinkle absolute left-8 top-8 h-4 w-4 text-berry" style={{ animationDelay: "-1.8s" }} />
           <div className="relative grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
               <Eyebrow>Personalizados</Eyebrow>

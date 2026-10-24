@@ -1,28 +1,40 @@
+import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 /**
  * Assinatura celestial da Astria: estrelas, luas, órbitas e pontos.
  * Sempre decorativa (aria-hidden) e usada com muita discrição.
  */
-type Kind = "star" | "moon" | "orbit" | "dots";
+type Kind = "star" | "moon" | "orbit" | "dots" | "planet";
 
 export function Ornament({
   kind,
   className,
+  style,
 }: {
   kind: Kind;
   className?: string;
+  style?: CSSProperties;
 }) {
   const common = {
     "aria-hidden": true as const,
     focusable: false as const,
     className: cn("pointer-events-none select-none", className),
+    style,
   };
 
   if (kind === "star") {
     return (
       <svg viewBox="0 0 40 40" fill="currentColor" {...common}>
         <path d="M20 2c.9 8.7 3.3 14.6 6.9 17.2C30.5 21.8 34.8 20.9 38 20c-3.2-.9-7.5-1.8-11.1.8C23.3 23.4 20.9 29.3 20 38c-.9-8.7-3.3-14.6-6.9-17.2C9.5 18.2 5.2 19.1 2 20c3.2.9 7.5 1.8 11.1-.8C16.7 16.6 19.1 10.7 20 2Z" />
+      </svg>
+    );
+  }
+  if (kind === "planet") {
+    return (
+      <svg viewBox="0 0 48 48" {...common}>
+        <circle cx="24" cy="24" r="12" fill="currentColor" />
+        <ellipse cx="24" cy="24" rx="22" ry="7" transform="rotate(-22 24 24)" fill="none" stroke="currentColor" strokeWidth="1.6" opacity="0.55" />
       </svg>
     );
   }

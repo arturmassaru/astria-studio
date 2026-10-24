@@ -2,21 +2,23 @@
 
 @theme inline {
   /* Paleta principal */
-  --color-cream: #faf9f7;
-  --color-sand: #f3eee8;
-  --color-stone: #ddd4ca;
+  --color-cream: #fef0e7;
+  --color-sand: #f8eddf;
+  --color-stone: #e6d8c8;
   --color-taupe: #a9a39c;
   --color-ink: #292725;
   /* Texto secundário com contraste AA sobre creme (taupe é só decorativo) */
   --color-muted: #6b665f;
 
   /* Cores de apoio (uso moderado) */
-  --color-rose: #f2dcdd;
-  --color-lilac: #e4ddf0;
-  --color-sky: #dce7f2;
-  --color-mint: #dcebe1;
-  --color-peach: #f6e0d0;
-  --color-gold: #c4a878;
+  --color-rose: #e8b9c4; /* rosa blush */
+  --color-lilac: #c9bce0; /* lavanda suave */
+  --color-sky: #c8dbeb;
+  --color-mint: #b8c6b0; /* verde sálvia */
+  --color-peach: #f5d6bd;
+  --color-berry: #b96f83; /* rosa queimado: usar com moderação, em texto grande ou detalhes */
+  --color-gold: #d78c42;
+  --color-plum: #713955; /* ameixa do logotipo */
   --color-gold-soft: #eadfc8;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -29,9 +31,12 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
+  overflow-x: clip;
+  max-width: 100vw;
   background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
@@ -57,12 +62,64 @@ body {
   display: none;
 }
 
+/* ---------- Movimento celestial (decorativo) ---------- */
+@keyframes astria-twinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(18deg); }
+}
+@keyframes astria-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes astria-orbit {
+  to { transform: rotate(360deg); }
+}
+@keyframes astria-drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -8px); }
+}
+.animate-twinkle { animation: astria-twinkle 3.6s ease-in-out infinite; }
+.animate-float { animation: astria-float 7s ease-in-out infinite; }
+.animate-orbit { animation: astria-orbit 30s linear infinite; }
+.animate-drift { animation: astria-drift 9s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
+  .animate-twinkle,
+  .animate-float,
+  .animate-orbit,
+  .animate-drift {
+    animation: none !important;
+  }
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Proteção contra estouro lateral no celular: colunas de grid podem encolher
+   (sem isso, uma palavra longa alarga a coluna e desbalanceia as margens). */
+@layer base {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  li {
+    overflow-wrap: break-word;
+  }
+  .grid > *,
+  .flex > * {
+    min-width: 0;
+  }
+  img,
+  svg,
+  video {
+    max-width: 100%;
   }
 }

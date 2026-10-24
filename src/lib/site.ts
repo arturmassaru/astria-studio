@@ -4,10 +4,10 @@ export const siteConfig = {
   tagline: "Ideias que ganham forma.",
   description:
     "A Astria Studio cria objetos, presentes e peças personalizadas. Design, criatividade e personalização para ideias que ganham forma.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   /** Somente dígitos com DDI + DDD. Configure em NEXT_PUBLIC_WHATSAPP_NUMBER. */
   whatsappNumber: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/\D/g, ""),
-  instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "https://www.instagram.com/",
+  instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://www.instagram.com/",
 } as const;
 
 export function whatsappLink(message?: string): string {

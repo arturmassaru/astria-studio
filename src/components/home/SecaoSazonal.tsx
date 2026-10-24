@@ -16,9 +16,10 @@ export async function SecaoSazonal() {
         {campaigns.map((c, i) => (
           <article
             key={c.id}
-            className="relative grid items-center gap-10 overflow-hidden rounded-[2rem] bg-peach/40 p-6 sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-14"
+            className="relative grid items-center gap-10 overflow-hidden rounded-[2rem] bg-peach/70 p-6 sm:p-10 lg:grid-cols-2 lg:gap-16 lg:p-14"
           >
-            <Ornament kind="star" className="absolute right-8 top-8 h-5 w-5 text-gold" />
+            <Ornament kind="star" className="animate-twinkle absolute right-8 top-8 h-5 w-5 text-berry" />
+            <Ornament kind="planet" className="animate-float absolute right-20 top-16 hidden h-10 w-10 text-lilac sm:block" />
             <Ornament kind="dots" className="absolute bottom-8 left-10 h-4 w-16 text-gold/70" />
             <div className={i % 2 === 1 ? "lg:order-2" : undefined}>
               <Eyebrow>{c.kicker}</Eyebrow>

@@ -8,24 +8,28 @@ const paths = [
     title: "Produtos",
     text: "Peças prontas para encontrar um lugar na sua rotina.",
     href: "/produtos",
+    tone: "bg-rose",
   },
   {
     n: "02",
     title: "Personalizados",
     text: "Escolha detalhes e transforme uma peça em algo seu.",
     href: "/produtos?tag=personalizavel",
+    tone: "bg-lilac",
   },
   {
     n: "03",
     title: "Kits",
     text: "Combinações pensadas para presentear.",
     href: "/kits",
+    tone: "bg-mint",
   },
   {
     n: "04",
     title: "Seu projeto",
     text: "Você imagina. A gente ajuda a dar forma.",
     href: "/personalizados#projeto",
+    tone: "bg-peach",
   },
 ];
 
@@ -49,9 +53,9 @@ export function FormasDeExplorar() {
             <li key={p.n} className="border-t border-stone">
               <Link
                 href={p.href}
-                className="group grid grid-cols-[3rem_1fr_auto] items-center gap-4 py-8 transition-colors hover:bg-sand/50 sm:grid-cols-[4.5rem_1fr_auto] sm:py-10"
+                className="group grid grid-cols-[3rem_1fr_auto] items-center gap-4 py-8 transition-colors hover:bg-sand sm:grid-cols-[4.5rem_1fr_auto] sm:py-10"
               >
-                <span className="font-serif text-sm italic text-taupe">{p.n}</span>
+                <span className={`flex h-11 w-11 items-center justify-center rounded-full font-serif text-sm italic text-ink transition-transform duration-500 group-hover:scale-110 ${p.tone}`}>{p.n}</span>
                 <span>
                   <span className="block font-serif text-3xl font-light tracking-tight sm:text-4xl">
                     {p.title}

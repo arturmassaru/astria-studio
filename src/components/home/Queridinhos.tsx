@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Ornament } from "@/components/ui/Ornament";
 import { ProductCard, productFromPrice } from "@/components/shop/ProductCard";
 import { Container, Eyebrow } from "@/components/ui/primitives";
 import { getCategories, getFeaturedProducts } from "@/services/catalog";
@@ -9,7 +10,9 @@ export async function Queridinhos() {
   const hasDemo = products.some((p) => p.isDemo);
 
   return (
-    <section aria-labelledby="queridinhos-titulo" className="bg-sand/50 py-20 sm:py-28">
+    <section aria-labelledby="queridinhos-titulo" className="relative overflow-hidden bg-rose/30 py-20 sm:py-28">
+      <Ornament kind="star" className="animate-twinkle absolute right-[8%] top-10 h-6 w-6 text-berry" />
+      <Ornament kind="planet" className="animate-float absolute right-[16%] top-24 hidden h-12 w-12 text-lilac sm:block" />
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -34,12 +37,12 @@ export async function Queridinhos() {
         role="region"
         aria-label="Vitrine de produtos, role para o lado"
         tabIndex={0}
-        className="scrollbar-none mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-4 sm:px-8 lg:px-[max(3rem,calc((100vw-80rem)/2+3rem))]"
+        className="scrollbar-none mt-12 flex gap-6 overflow-x-auto px-6 pb-4 after:w-px after:shrink-0 after:content-[''] sm:px-8 lg:px-[max(3rem,calc((100vw-80rem)/2+3rem))]"
       >
         {products.map((p) => {
           const pr = productFromPrice(p);
           return (
-            <div key={p.id} className="w-[72vw] shrink-0 snap-start sm:w-[320px]">
+            <div key={p.id} className="w-[72vw] shrink-0 sm:w-[320px]">
               <ProductCard
                 href={`/produtos/${p.slug}`}
                 name={p.name}

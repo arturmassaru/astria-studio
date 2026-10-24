@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { Ornament } from "@/components/ui/Ornament";
 import { Container } from "@/components/ui/primitives";
 import { footerExplore, footerPolicies } from "@/data/navigation";
 import { siteConfig, whatsappLink } from "@/lib/site";
-import { Logo } from "./Logo";
 
 export function Footer() {
   const linkCls = "text-sm text-muted transition-colors hover:text-ink";
@@ -13,7 +13,15 @@ export function Footer() {
       <Ornament kind="orbit" className="absolute -top-12 right-[8%] hidden h-24 w-24 text-gold/60 sm:block" />
       <Container className="grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="max-w-xs">
-          <Logo />
+          <Link href="/" aria-label="Astria Studio, página inicial">
+            <Image
+              src="/brand/astria-wordmark-plum.png"
+              alt="Astria Studio, um universo de possibilidades"
+              width={802}
+              height={491}
+              className="h-auto w-44"
+            />
+          </Link>
           <p className="mt-5 font-serif text-lg italic text-muted">{siteConfig.tagline}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
             Objetos, presentes e peças personalizadas.

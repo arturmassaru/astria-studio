@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AdminPage, CheckField, EmptyState, FormError, Modal, Pill, Table, Td, Th } from "@/components/admin/ui";
+import { ImageUploader } from "@/components/admin/ImageUploader";
 import { useAccess } from "@/components/admin/role";
 import { Button } from "@/components/ui/Button";
 import { SelectField, TextAreaField, TextField } from "@/components/ui/fields";
@@ -156,6 +157,8 @@ export default function KitsAdminPage() {
               value={draft.description}
               onChange={(e) => set("description", e.target.value)}
             />
+
+            <ImageUploader images={draft.images} onChange={(next) => set("images", next)} />
 
             <fieldset className="space-y-3">
               <legend className="mb-1 text-sm font-medium">Composição</legend>

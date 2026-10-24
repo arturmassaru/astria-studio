@@ -22,8 +22,9 @@ import {
   suggestedPrice,
 } from "@/lib/pricing";
 import { cols } from "@/lib/store/collections";
-import { useCol } from "@/lib/store/core";
+import { useCol, writeCol } from "@/lib/store/core";
 import { slugify, uid } from "@/lib/utils";
+import { ImageUploader } from "./ImageUploader";
 import { CheckField, Panel } from "./ui";
 
 type SetDraft = (updater: (p: Product) => Product) => void;
@@ -340,6 +341,54 @@ function PricingPanel({ draft, setDraft }: { draft: Product; setDraft: SetDraft 
 /* Formulário principal                                                */
 /* ------------------------------------------------------------------ */
 
+/** Cria categoria/tag sem sair do cadastro do produto. */
+function QuickAdd({
+  id,
+  label,
+  onAdd,
+}: {
+  id: string;
+  label: string;
+  onAdd: (name: string) => string | null;
+}) {
+  const [name, setName] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  function add() {
+    const res = onAdd(name.trim());
+    if (res) return setError(res);
+    setName("");
+    setError(null);
+  }
+  return (
+    <div className="mt-3">
+      <div className="flex max-w-md items-end gap-3">
+        <div className="flex-1">
+          <TextField
+            id={id}
+            label={label}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                add();
+              }
+            }}
+          />
+        </div>
+        <Button variant="outline" onClick={add}>
+          Adicionar
+        </Button>
+      </div>
+      {error ? (
+        <p role="alert" className="mt-2 text-sm text-red-900">
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 export function ProductForm({
   draft,
   setDraft,
@@ -440,6 +489,10 @@ export function ProductForm({
         </div>
       </Panel>
 
+      <Panel title="Imagens">
+        <ImageUploader images={draft.images} onChange={(next) => set("images", next)} />
+      </Panel>
+
       <Panel title="Categorias e tags">
         <fieldset>
           <legend className="mb-2 text-sm font-medium">Categorias</legend>
@@ -454,6 +507,30 @@ export function ProductForm({
               />
             ))}
           </div>
+          <QuickAdd
+            id="pf-nova-cat"
+            label="Nova categoria"
+            onAdd={(name) => {
+              if (!name) return "Informe o nome da categoria.";
+              const slug = slugify(name);
+              if (categories.some((c) => c.slug === slug)) return "Essa categoria já existe.";
+              const id = uid("cat");
+              writeCol(cols.categories, (prev) => [
+                ...prev,
+                {
+                  id,
+                  slug,
+                  name,
+                  description: "",
+                  sortOrder: prev.length + 1,
+                  marginPercent: null,
+                  active: true,
+                },
+              ]);
+              set("categoryIds", [...draft.categoryIds, id]);
+              return null;
+            }}
+          />
         </fieldset>
         <fieldset className="mt-5">
           <legend className="mb-2 text-sm font-medium">Tags</legend>
@@ -468,6 +545,19 @@ export function ProductForm({
               />
             ))}
           </div>
+          <QuickAdd
+            id="pf-nova-tag"
+            label="Nova tag"
+            onAdd={(name) => {
+              if (!name) return "Informe o nome da tag.";
+              const slug = slugify(name);
+              if (tags.some((t) => t.slug === slug)) return "Essa tag já existe.";
+              const id = uid("tag");
+              writeCol(cols.tags, (prev) => [...prev, { id, slug, name }]);
+              set("tagIds", [...draft.tagIds, id]);
+              return null;
+            }}
+          />
         </fieldset>
       </Panel>
 
